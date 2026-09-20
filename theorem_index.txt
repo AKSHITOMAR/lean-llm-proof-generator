@@ -1,0 +1,9 @@
+And.left | Extracts the left proposition from P ∧ Q
+And.right | Extracts the right proposition from P ∧ Q
+Or.inl | Proves P ∨ Q when P is known
+Or.inr | Proves P ∨ Q when Q is known
+Exists.intro | Constructs an existential proof
+Iff.mp | Uses P ↔ Q to derive Q from P
+Iff.mpr | Uses P ↔ Q to derive P from Q
+Function application | Apply a hypothesis of the form P → Q to a proof of P to obtain Q
+modus ponens | From P → Q and P, derive Q
