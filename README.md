@@ -6,17 +6,64 @@ and the Lean compiler.
 
 ## Architecture
 
-Natural Language Problem
-        ↓
-Theorem Retrieval
-        ↓
-LLM Proof Generation
-        ↓
-Lean Verification
-        ↓
-PASS / FAIL
-        ↓
-LLM Retry if Proof Fails
+                    ┌──────────────────────────┐
+                    │  Natural Language Input  │
+                    │   Logic / Math Problem   │
+                    └────────────┬─────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────┐
+                    │   Problem / Goal Parser   │
+                    │                          │
+                    │ Identify propositions,   │
+                    │ hypotheses and goal      │
+                    └────────────┬─────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────┐
+                    │   Theorem / Knowledge     │
+                    │       Retrieval           │
+                    │                          │
+                    │ Mathlib / relevant       │
+                    │ theorems & proof patterns│
+                    └────────────┬─────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────┐
+                    │           LLM            │
+                    │     Proof Generation     │
+                    │                          │
+                    │ Natural language +       │
+                    │ retrieved context        │
+                    │          ↓               │
+                    │      Lean 4 proof        │
+                    └────────────┬─────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────┐
+                    │          Lean 4          │
+                    │     Proof Verification   │
+                    │                          │
+                    │  Compile / Type Check    │
+                    └────────────┬─────────────┘
+                                 │
+                         ┌───────┴────────┐
+                         │                │
+                      PASS ✅           FAIL ❌
+                         │                │
+                         ▼                ▼
+                ┌──────────────┐   ┌──────────────┐
+                │   Verified   │   │ Lean Error / │
+                │    Proof     │   │ Proof State  │
+                └──────────────┘   └──────┬───────┘
+                                          │
+                                          ▼
+                                   ┌──────────────┐
+                                   │  LLM Retry / │
+                                   │ Proof Repair │
+                                   └──────┬───────┘
+                                          │
+                                          └──────► Lean 4
 
 ## Features
 
